@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Lightbox from './Lightbox';
 
@@ -7,6 +7,12 @@ export default function ProductGallery({ products, title, subtitle }) {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [currentPage, setCurrentPage] = useState(0);
   const itemsPerPage = 4;
+
+  // Reset to page 1 whenever the product list changes (e.g. filter tab switch)
+  useEffect(() => {
+    setCurrentPage(0);
+  }, [products]);
+
   const totalPages = Math.ceil(products.length / itemsPerPage);
   const currentProducts = products.slice(currentPage * itemsPerPage, (currentPage + 1) * itemsPerPage);
 

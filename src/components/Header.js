@@ -20,7 +20,8 @@ const navLinks = [
     ],
   },
   { label: 'Đồ Nội Thất', href: '/noi-that' },
-  { label: 'Dự Án', href: '/du-an' },
+  { label: 'Sự Kiện', href: '/su-kien' },
+  { label: 'Dự Án Hoàn Thành', href: '/du-an' },
   { label: 'Liên Hệ', href: '/lien-he' },
 ];
 

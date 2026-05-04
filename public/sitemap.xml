@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <!-- ========================================================== -->
+  <!--  QUẢNG CÁO & NỘI THẤT NGỌC LONG — sitemap.xml             -->
+  <!--  Domain  : https://quangcaovanoithat.vn                    -->
+  <!--  Updated : 2026-05-04                                      -->
+  <!-- ========================================================== -->
+
+  <!-- ── SECTION 1 : QUẢNG CÁO ─────────────────────────────── -->
+
+  <!-- Trang chủ -->
+  <url>
+    <loc>https://quangcaovanoithat.vn/</loc>
+    <lastmod>2026-05-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- Biển Quảng Cáo -->
+  <url>
+    <loc>https://quangcaovanoithat.vn/bien-quang-cao</loc>
+    <lastmod>2026-05-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Sự Kiện -->
+  <url>
+    <loc>https://quangcaovanoithat.vn/su-kien</loc>
+    <lastmod>2026-05-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Dự Án Hoàn Thành -->
+  <url>
+    <loc>https://quangcaovanoithat.vn/du-an</loc>
+    <lastmod>2026-05-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- ── SECTION 2 : NỘI THẤT ───────────────────────────────── -->
+
+  <!-- Đồ Nội Thất -->
+  <url>
+    <loc>https://quangcaovanoithat.vn/noi-that</loc>
+    <lastmod>2026-05-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- ── LIÊN HỆ (dùng chung cho cả hai mảng) ─────────────── -->
+
+  <!-- Liên Hệ -->
+  <url>
+    <loc>https://quangcaovanoithat.vn/lien-he</loc>
+    <lastmod>2026-05-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+</urlset>

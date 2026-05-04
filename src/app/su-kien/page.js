@@ -6,20 +6,17 @@ import ProductGallery from '@/components/ProductGallery';
 import { eventProducts } from '@/lib/siteConfig';
 
 const categories = [
-  { id: 'all',         label: 'Tất Cả',          icon: '🎪' },
-  { id: 'phong-nen',   label: 'Phông Nền',        icon: '🖼️' },
-  { id: 'booth',       label: 'Booth & Lều',      icon: '⛺' },
-  { id: 'standee',     label: 'Standee & Banner', icon: '📋' },
-  { id: 'cong-chao',   label: 'Cổng Chào',        icon: '🏛️' },
-  { id: 'man-hinh',    label: 'Màn Hình LED',     icon: '📺' },
-  { id: 'bien-chi-dan',label: 'Biển Chỉ Dẫn',    icon: '🗺️' },
+  { id: 'all', label: 'Tất Cả', icon: '🎪' },
+  { id: 'phong-nen', label: 'Phông Nền', icon: '🖼️' },
+  { id: 'trang-tri', label: 'Trang Trí', icon: '🎨' },
+  { id: 'cong-chao', label: 'Cổng Chào', icon: '🏛️' },
 ];
 
 const highlights = [
   { icon: '🎯', title: 'Thiết Kế Theo Yêu Cầu', desc: 'Đội ngũ thiết kế sáng tạo, tư vấn miễn phí, phác thảo nhanh trong 24h.' },
-  { icon: '⚡', title: 'Thi Công Nhanh Chóng',   desc: 'Cam kết đúng deadline, hỗ trợ setup tại địa điểm sự kiện.' },
-  { icon: '🎨', title: 'Đa Dạng Mẫu Mã',         desc: 'Phù hợp mọi loại sự kiện: hội nghị, tiệc cưới, khai trương, triển lãm.' },
-  { icon: '🔧', title: 'Cho Thuê & Bán',          desc: 'Linh hoạt cho thuê thiết bị sự kiện hoặc mua sở hữu vĩnh viễn.' },
+  { icon: '⚡', title: 'Thi Công Nhanh Chóng', desc: 'Cam kết đúng deadline, hỗ trợ setup tại địa điểm sự kiện.' },
+  { icon: '🎨', title: 'Đa Dạng Mẫu Mã', desc: 'Phù hợp mọi loại sự kiện: hội nghị, tiệc cưới, khai trương, triển lãm.' },
+  { icon: '🔧', title: 'Cho Thuê & Bán', desc: 'Linh hoạt cho thuê thiết bị sự kiện hoặc mua sở hữu vĩnh viễn.' },
 ];
 
 export default function EventsPage() {

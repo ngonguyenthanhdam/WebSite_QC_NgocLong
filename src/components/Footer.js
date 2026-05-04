@@ -35,12 +35,18 @@ export default function Footer() {
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 20 }}>
               <div style={{
-                width: 46, height: 46,
-                background: 'linear-gradient(135deg, var(--color-champagne), var(--color-champagne-dark))',
+                width: 50, height: 50,
                 borderRadius: 12,
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                fontWeight: 800, fontSize: '1.2rem', color: '#FFF',
-              }}>NL</div>
+                overflow: 'hidden',
+                flexShrink: 0,
+                boxShadow: '0 4px 16px rgba(201,168,76,0.35)',
+              }}>
+                <img
+                  src="/images/logo.png"
+                  alt="Logo Ngọc Long"
+                  style={{ width: '100%', height: '100%', objectFit: 'contain', display: 'block' }}
+                />
+              </div>
               <div>
                 <div style={{ fontWeight: 800, fontSize: '1rem' }}>Long Quảng Cáo</div>
                 <div style={{ fontSize: '0.75rem', color: 'var(--color-champagne)', fontWeight: 500 }}>& Nội Thất</div>
@@ -171,7 +177,7 @@ export default function Footer() {
           gap: 12,
         }}>
           <p style={{ color: 'rgba(255,255,255,0.45)', fontSize: '0.82rem' }}>
-            © 2025 Long Quảng Cáo & Nội Thất. Bản quyền được bảo lưu.
+            © 2015 Long Quảng Cáo & Nội Thất.
           </p>
           <p style={{ color: 'rgba(255,255,255,0.35)', fontSize: '0.8rem' }}>
             Thiết kế chuyên nghiệp • Thi công nhanh chóng • Bảo hành uy tín

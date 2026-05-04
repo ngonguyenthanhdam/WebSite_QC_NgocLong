@@ -11,14 +11,40 @@ export default function ContactPage() {
   const [form, setForm] = useState({ name: '', phone: '', service: '', message: '' });
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [submitError, setSubmitError] = useState(false);
+  const [showFbToast, setShowFbToast] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleFbClick = (e) => {
+    e.preventDefault();
+    setShowFbToast(true);
+    setTimeout(() => setShowFbToast(false), 2800);
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    setTimeout(() => {
+    setSubmitError(false);
+    try {
+      const res = await fetch('https://formspree.io/f/xjglgznd', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          'Họ và tên': form.name,
+          'Số điện thoại': form.phone,
+          'Dịch vụ': form.service,
+          'Nội dung yêu cầu': form.message,
+        }),
+      });
+      if (res.ok) {
+        setSubmitted(true);
+      } else {
+        setSubmitError(true);
+      }
+    } catch {
+      setSubmitError(true);
+    } finally {
       setLoading(false);
-      setSubmitted(true);
-    }, 1200);
+    }
   };
 
   return (
@@ -28,6 +54,18 @@ export default function ContactPage() {
           <motion.div className="toast-notification show"
             initial={{ y: 100, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: 100, opacity: 0 }}>
             <span className="toast-icon">✓</span> Đã sao chép số điện thoại
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* FB coming-soon toast */}
+      <AnimatePresence>
+        {showFbToast && (
+          <motion.div className="toast-notification show"
+            initial={{ y: 100, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: 100, opacity: 0 }}
+            transition={{ type: 'spring', stiffness: 300, damping: 28 }}
+          >
+            <span className="toast-icon">ℹ️</span> Tính năng này sẽ được thêm sau
           </motion.div>
         )}
       </AnimatePresence>
@@ -150,6 +188,21 @@ export default function ContactPage() {
                   >
                     {loading ? '⏳ Đang gửi...' : '📋 Gửi Yêu Cầu Báo Giá'}
                   </button>
+
+                  {submitError && (
+                    <div style={{
+                      background: 'rgba(220,53,69,0.08)',
+                      border: '1px solid rgba(220,53,69,0.35)',
+                      borderRadius: 'var(--radius-sm)',
+                      padding: '14px 18px',
+                      color: '#c0392b',
+                      fontSize: '0.88rem',
+                      display: 'flex', alignItems: 'center', gap: 10,
+                    }}>
+                      <span>⚠️</span>
+                      <span>Gửi thất bại. Vui lòng thử lại hoặc liên hệ trực tiếp qua SĐT <strong>0373 132 811</strong>.</span>
+                    </div>
+                  )}
                 </form>
               )}
             </motion.div>
@@ -223,17 +276,16 @@ export default function ContactPage() {
                   </div>
                 </a>
 
-                <a
+                <button
                   id="contact-page-fb-link"
-                  href={contact.facebookLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  onClick={handleFbClick}
                   style={{
                     display: 'flex', alignItems: 'center', gap: 18,
                     background: 'white', border: '1.5px solid var(--color-border)',
                     borderRadius: 'var(--radius-md)', padding: '20px 22px',
-                    textDecoration: 'none', color: 'inherit',
+                    cursor: 'pointer', fontFamily: 'inherit', color: 'inherit',
                     transition: 'all 0.25s', boxShadow: 'var(--shadow-soft)',
+                    textAlign: 'left', width: '100%',
                   }}
                   onMouseEnter={e => { e.currentTarget.style.borderColor = '#1877F2'; e.currentTarget.style.boxShadow = '0 4px 24px rgba(24,119,242,0.15)'; }}
                   onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--color-border)'; e.currentTarget.style.boxShadow = 'var(--shadow-soft)'; }}
@@ -252,7 +304,7 @@ export default function ContactPage() {
                     <div style={{ fontSize: '0.78rem', color: 'var(--color-text-muted)', marginBottom: 3, fontWeight: 500 }}>Facebook</div>
                     <div style={{ fontSize: '1.05rem', fontWeight: 700 }}>Fan Page của chúng tôi</div>
                   </div>
-                </a>
+                </button>
               </div>
 
               {/* Working hours */}
@@ -265,9 +317,8 @@ export default function ContactPage() {
                 <table style={{ width: '100%', fontSize: '0.88rem' }}>
                   <tbody>
                     {[
-                      ['Thứ 2 – Thứ 6', '7:30 – 17:30'],
-                      ['Thứ 7', '7:30 – 12:00'],
-                      ['Chủ Nhật', 'Nghỉ (liên hệ zalo)'],
+                      ['Thứ 2 – Chủ Nhật', '7:30 – 21:00'],
+                      ['Các ngày lễ', '7:30 – 17:00'],
                     ].map(([day, time]) => (
                       <tr key={day}>
                         <td style={{ padding: '7px 0', color: 'var(--color-text-muted)', width: '60%' }}>{day}</td>

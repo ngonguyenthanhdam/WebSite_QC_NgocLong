@@ -29,9 +29,23 @@ export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
+  const [showFbToast, setShowFbToast] = useState(false);
+  const [showLogoModal, setShowLogoModal] = useState(false);
   const pathname = usePathname();
   const contact = useContact();
   const { copy, copied } = useClipboard();
+
+  const handleFbClick = () => {
+    setShowFbToast(true);
+    setTimeout(() => setShowFbToast(false), 2800);
+  };
+
+  // Close logo modal on ESC
+  useEffect(() => {
+    const onKey = (e) => { if (e.key === 'Escape') setShowLogoModal(false); };
+    if (showLogoModal) window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [showLogoModal]);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 40);
@@ -67,6 +81,22 @@ export default function Header() {
         )}
       </AnimatePresence>
 
+      {/* Toast for FB coming soon */}
+      <AnimatePresence>
+        {showFbToast && (
+          <motion.div
+            className="toast-notification show"
+            initial={{ y: 100, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: 100, opacity: 0 }}
+            transition={{ type: 'spring', stiffness: 300, damping: 28 }}
+          >
+            <span className="toast-icon">ℹ️</span>
+            Tính năng này sẽ được thêm sau
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       <header
         style={{
           position: 'fixed',
@@ -84,33 +114,159 @@ export default function Header() {
         }}
       >
         <div className="container-site" style={{ display: 'flex', alignItems: 'center', height: 72, gap: 24 }}>
-          {/* Logo */}
-          <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: 12, textDecoration: 'none', flexShrink: 0 }}>
-            <div style={{
-              width: 46, height: 46,
-              background: 'linear-gradient(135deg, var(--color-champagne), var(--color-champagne-dark))',
-              borderRadius: 12,
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-              fontWeight: 800, fontSize: '1.2rem', color: '#FFF',
-              boxShadow: '0 4px 16px rgba(201,168,76,0.35)',
-              letterSpacing: '-0.05em',
-              flexShrink: 0,
-            }}>NL</div>
-            <div style={{ display: 'flex', flexDirection: 'column' }}>
+          {/* Logo — click to open company card modal */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: 12, flexShrink: 0 }}>
+            <button
+              id="header-logo-btn"
+              onClick={() => setShowLogoModal(true)}
+              title="Xem thông tin công ty"
+              style={{
+                background: 'none', border: 'none', padding: 0,
+                cursor: 'zoom-in', display: 'block', flexShrink: 0,
+              }}
+            >
+              <div
+                style={{
+                  width: 46, height: 46, borderRadius: 12, overflow: 'hidden',
+                  boxShadow: '0 4px 16px rgba(201,168,76,0.35)',
+                  transition: 'transform 0.2s, box-shadow 0.2s',
+                }}
+                onMouseEnter={e => { e.currentTarget.style.transform = 'scale(1.1)'; e.currentTarget.style.boxShadow = '0 6px 24px rgba(201,168,76,0.55)'; }}
+                onMouseLeave={e => { e.currentTarget.style.transform = 'scale(1)'; e.currentTarget.style.boxShadow = '0 4px 16px rgba(201,168,76,0.35)'; }}
+              >
+                <img
+                  src="/images/logo.png"
+                  alt="Logo Ngọc Long"
+                  style={{ width: '100%', height: '100%', objectFit: 'contain', display: 'block' }}
+                />
+              </div>
+            </button>
+
+            <Link href="/" style={{ display: 'flex', flexDirection: 'column', textDecoration: 'none' }}>
               <span style={{
                 fontWeight: 800, fontSize: '0.95rem', lineHeight: 1.2,
                 color: scrolled ? 'var(--color-text)' : 'white',
-                letterSpacing: '-0.02em',
-                transition: 'color 0.3s',
+                letterSpacing: '-0.02em', transition: 'color 0.3s',
               }}>Long Quảng Cáo</span>
               <span style={{
                 fontSize: '0.72rem', fontWeight: 500,
                 color: scrolled ? 'var(--color-champagne)' : 'rgba(255,255,255,0.75)',
-                letterSpacing: '0.04em',
-                transition: 'color 0.3s',
-              }}>& Nội Thất</span>
-            </div>
-          </Link>
+                letterSpacing: '0.04em', transition: 'color 0.3s',
+              }}>&nbsp;&nbsp;Sự Kiện & Nội Thất</span>
+            </Link>
+          </div>
+
+          {/* Company Card Modal */}
+          <AnimatePresence>
+            {showLogoModal && (
+              <motion.div
+                id="logo-modal-overlay"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.2 }}
+                onClick={() => setShowLogoModal(false)}
+                style={{
+                  position: 'fixed', inset: 0, zIndex: 9000,
+                  background: 'rgba(8,14,24,0.85)',
+                  backdropFilter: 'blur(14px)',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  padding: 24,
+                }}
+              >
+                <motion.div
+                  initial={{ scale: 0.86, opacity: 0, y: 28 }}
+                  animate={{ scale: 1, opacity: 1, y: 0 }}
+                  exit={{ scale: 0.92, opacity: 0, y: 20 }}
+                  transition={{ type: 'spring', stiffness: 340, damping: 28 }}
+                  onClick={e => e.stopPropagation()}
+                  style={{
+                    background: 'linear-gradient(135deg, rgba(24,33,50,0.98), rgba(14,20,32,0.98))',
+                    border: '1px solid rgba(201,168,76,0.22)',
+                    borderRadius: 24,
+                    boxShadow: '0 40px 90px rgba(0,0,0,0.65), 0 0 0 1px rgba(201,168,76,0.08)',
+                    padding: '44px 40px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 44,
+                    maxWidth: 620,
+                    width: '100%',
+                    flexWrap: 'wrap',
+                    justifyContent: 'center',
+                    position: 'relative',
+                  }}
+                >
+                  {/* Close button */}
+                  <button
+                    onClick={() => setShowLogoModal(false)}
+                    style={{
+                      position: 'absolute', top: 16, right: 16,
+                      background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.12)',
+                      borderRadius: '50%', width: 34, height: 34,
+                      display: 'flex', alignItems: 'center', justifyContent: 'center',
+                      cursor: 'pointer', color: 'rgba(255,255,255,0.6)', fontSize: '1rem',
+                      transition: 'all 0.2s',
+                    }}
+                    onMouseEnter={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.14)'; e.currentTarget.style.color = 'white'; }}
+                    onMouseLeave={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.06)'; e.currentTarget.style.color = 'rgba(255,255,255,0.6)'; }}
+                  >✕</button>
+
+                  {/* Logo large */}
+                  <div style={{
+                    width: 190, height: 190, borderRadius: 20, overflow: 'hidden',
+                    flexShrink: 0, background: 'white', padding: 14,
+                    boxShadow: '0 12px 48px rgba(201,168,76,0.28)',
+                  }}>
+                    <img
+                      src="/images/logo.png"
+                      alt="Logo Công ty Ngọc Long"
+                      style={{ width: '100%', height: '100%', objectFit: 'contain', display: 'block' }}
+                    />
+                  </div>
+
+                  {/* Company info */}
+                  <div style={{ flex: 1, minWidth: 200 }}>
+                    <div style={{
+                      display: 'inline-block',
+                      background: 'linear-gradient(135deg, var(--color-champagne), var(--color-champagne-dark))',
+                      borderRadius: 6, padding: '3px 12px',
+                      fontSize: '0.68rem', fontWeight: 700, letterSpacing: '0.1em',
+                      color: '#1A1A1A', marginBottom: 12,
+                    }}>CÔNG TY TNHH</div>
+                    <h2 style={{
+                      color: 'white', fontWeight: 900,
+                      fontSize: 'clamp(1.05rem, 3vw, 1.4rem)',
+                      lineHeight: 1.3, marginBottom: 28,
+                      letterSpacing: '-0.01em',
+                    }}>
+                      QUẢNG CÁO NGỌC LONG
+                    </h2>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+                      {[
+                        { icon: '📞', label: 'Điện thoại', value: '0373 132 811' },
+                        { icon: '🏢', label: 'Mã số thuế', value: '0318692666' },
+                      ].map(({ icon, label, value }) => (
+                        <div key={label} style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
+                          <div style={{
+                            width: 42, height: 42, borderRadius: 11, flexShrink: 0,
+                            background: 'rgba(201,168,76,0.1)',
+                            border: '1px solid rgba(201,168,76,0.22)',
+                            display: 'flex', alignItems: 'center', justifyContent: 'center',
+                            fontSize: '1.15rem',
+                          }}>{icon}</div>
+                          <div>
+                            <div style={{ fontSize: '0.7rem', color: 'rgba(255,255,255,0.4)', marginBottom: 3 }}>{label}</div>
+                            <div style={{ fontSize: '1.05rem', fontWeight: 700, color: 'var(--color-champagne-light)', letterSpacing: '0.02em' }}>{value}</div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </motion.div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+
 
           {/* Desktop Nav */}
           <nav style={{ flex: 1, display: 'flex', justifyContent: 'center', gap: 4 }}>
@@ -123,7 +279,7 @@ export default function Header() {
               >
                 <Link
                   href={link.href}
-                  id={`nav-${link.href.replace(/\//g,'-').replace(/^-/, '')}`}
+                  id={`nav-${link.href.replace(/\//g, '-').replace(/^-/, '')}`}
                   style={{
                     display: 'flex',
                     alignItems: 'center',
@@ -146,7 +302,7 @@ export default function Header() {
                   {link.label}
                   {link.children && (
                     <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style={{ marginLeft: 2, marginTop: 1 }}>
-                      <path d="M3 5L7 9L11 5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+                      <path d="M3 5L7 9L11 5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
                   )}
                 </Link>
@@ -255,22 +411,22 @@ export default function Header() {
                 boxShadow: '0 4px 12px rgba(0,104,255,0.3)',
               }}
             >Z</a>
-            <a
+            <button
               id="header-fb-link"
-              href={contact.facebookLink}
-              target="_blank"
-              rel="noopener noreferrer"
+              onClick={handleFbClick}
               title="Facebook"
               style={{
                 width: 38, height: 38,
                 background: 'linear-gradient(135deg,#1877F2,#0D5EBF)',
                 borderRadius: '50%',
+                border: 'none',
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
-                color: 'white', fontSize: '0.9rem', textDecoration: 'none',
+                color: 'white', fontSize: '0.9rem',
+                cursor: 'pointer',
                 transition: 'var(--transition)',
                 boxShadow: '0 4px 12px rgba(24,119,242,0.3)',
               }}
-            >f</a>
+            >f</button>
 
             {/* Mobile Menu Toggle */}
             <button

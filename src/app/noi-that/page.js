@@ -6,9 +6,13 @@ import ProductGallery from '@/components/ProductGallery';
 import { furnitureProducts } from '@/lib/siteConfig';
 
 const categories = [
-  { id: 'all', label: 'Tất Cả' },
-  { id: 'tu', label: 'Tủ' },
-  { id: 'ke', label: 'Kệ' },
+  { id: 'all',          label: 'Tất Cả',        icon: '🏠' },
+  { id: 'tu',           label: 'Tủ',             icon: '😿' },
+  { id: 'bep',          label: 'Bếp',            icon: '🍳' },
+  { id: 'giuong-tu',    label: 'Giường Tủ',      icon: '🛌' },
+  { id: 'ban',          label: 'Bàn',            icon: '🪑' },
+  { id: 'tu-ke-tivi',   label: 'Tủ Kệ Tivi',    icon: '📺' },
+  { id: 'tu-ke',        label: 'Tủ Kệ',        icon: '📖' },
 ];
 
 export default function FurniturePage() {
@@ -33,7 +37,7 @@ export default function FurniturePage() {
           <div className="section-label">Sản Phẩm</div>
           <h1 style={{ color: 'white' }}>Đồ Nội Thất</h1>
           <p style={{ color: 'rgba(255,255,255,0.75)', marginTop: 14, maxWidth: 560, fontSize: '1.05rem' }}>
-            Sản xuất tủ, kệ và nội thất theo yêu cầu. Chất liệu gỗ công nghiệp và gỗ tự nhiên cao cấp.
+            Sản xuất nội thất theo yêu cầu: tủ, bếp, giường tủ, bàn, tủ kệ tivi. Chất liệu gỗ công nghiệp và gỗ tự nhiên cao cấp.
           </p>
         </div>
       </div>
@@ -81,6 +85,7 @@ export default function FurniturePage() {
                 className={`filter-tab ${activeCategory === cat.id ? 'active' : ''}`}
                 onClick={() => setActiveCategory(cat.id)}
               >
+                {cat.icon && <span style={{ marginRight: 5 }}>{cat.icon}</span>}
                 {cat.label}
                 <span style={{
                   marginLeft: 6, fontSize: '0.75rem', fontWeight: 700,

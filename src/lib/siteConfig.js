@@ -1,9 +1,9 @@
-// ============================================================
+﻿// ============================================================
 // CẤU HÌNH WEBSITE - Chỉnh sửa thông tin tại đây
 // ============================================================
 
 export const siteInfo = {
-  name: 'Quảng Cáo - Sự kiện & Nội Thất Ngọc Long',
+  name: 'Quảng Cáo & Nội Thất Ngọc Long',
   slogan: 'Chi nhánh làm việc bao phủ khắp các quận và khu vực lân cận tại TP.HCM',
   address: '[Khu vực TP.HCM]',
   email: '[ngoclongcompany010500@gmail.com]',

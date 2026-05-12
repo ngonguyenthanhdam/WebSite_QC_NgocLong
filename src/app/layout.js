@@ -6,9 +6,70 @@ import { ContactProvider } from '@/context/ContactContext';
 import BackToTop from '@/components/BackToTop';
 
 export const metadata = {
-  title: 'Long Quảng Cáo & Nội Thất - Biển Hiệu LED, Hộp Đèn, Chữ Nổi, Tủ Kệ',
-  description: 'Chuyên thi công biển quảng cáo hộp đèn LED, biển Alu, chữ nổi Inox và sản xuất đồ nội thất tủ kệ cao cấp. Chất lượng cao - Giá hợp lý - Bảo hành uy tín.',
-  keywords: 'biển quảng cáo, hộp đèn LED, chữ nổi, biển alu, nội thất, tủ kệ, thiết kế nội thất',
+  // metadataBase resolves all relative URLs in openGraph.images, twitter.images, etc.
+  metadataBase: new URL('https://quangcaovanoithat.vn'),
+
+  // Title template: child pages export title:'Foo' → renders 'Foo | Ngọc Long'
+  title: {
+    template: '%s | Ngọc Long Quảng Cáo & Nội Thất',
+    default: 'Ngọc Long – Thi Công Nội Thất & Quảng Cáo TP.HCM',
+  },
+  description:
+    'Ngọc Long chuyên thi công nội thất, biển quảng cáo LED, Alu, chữ nổi tại TP.HCM. ' +
+    'Thiết kế miễn phí – Bảo hành 2 năm. Gọi ngay: 0373.132.811!',
+  keywords: [
+    'thi công nội thất TP.HCM',
+    'biển quảng cáo LED',
+    'biển Alu',
+    'chữ nổi Inox',
+    'hộp đèn LED',
+    'đồ sự kiện',
+    'Ngọc Long',
+    'quảng cáo nội thất HCM',
+  ],
+
+  openGraph: {
+    title: 'Ngọc Long – Thi Công Nội Thất & Quảng Cáo TP.HCM',
+    description:
+      'Chuyên thi công biển quảng cáo LED, Alu, chữ nổi Inox và nội thất cao cấp tại TP.HCM. ' +
+      'Hotline: 0373.132.811',
+    url: 'https://quangcaovanoithat.vn',
+    siteName: 'Quảng Cáo & Nội Thất Ngọc Long',
+    locale: 'vi_VN',
+    type: 'website',
+    images: [
+      {
+        url: '/images/7_ADV.webp',
+        width: 1200,
+        height: 630,
+        alt: 'Thi công biển quảng cáo chữ nổi – Ngọc Long TP.HCM',
+      },
+    ],
+  },
+
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Ngọc Long – Thi Công Nội Thất & Quảng Cáo TP.HCM',
+    description:
+      'Chuyên thi công biển quảng cáo LED, Alu, chữ nổi Inox và nội thất tại TP.HCM. ' +
+      'Hotline: 0373.132.811',
+    images: ['/images/7_ADV.webp'],
+  },
+
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+
+  alternates: {
+    canonical: 'https://quangcaovanoithat.vn',
+  },
 };
 
 export default function RootLayout({ children }) {

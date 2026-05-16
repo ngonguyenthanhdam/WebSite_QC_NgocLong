@@ -70,6 +70,36 @@ export const metadata = {
   alternates: {
     canonical: 'https://quangcaovanoithat.vn',
   },
+
+  // ── Favicon & App Icons ──────────────────────────────────────────────────
+  // Next.js auto-detects /app/icon.png, but declaring it explicitly here
+  // ensures the correct <link> tags (rel, type, sizes) are emitted in <head>,
+  // which is what Google Search Bot reads to update the SERP favicon.
+  icons: {
+    // Primary favicon shown in browser tabs and bookmarks
+    icon: [
+      {
+        url: '/icon.png',
+        type: 'image/png',
+        sizes: '512x512',
+      },
+    ],
+    // Legacy shortcut icon for older browsers (IE, Edge Legacy)
+    shortcut: [
+      {
+        url: '/icon.png',
+        type: 'image/png',
+      },
+    ],
+    // Apple touch icon shown when user adds site to iOS/macOS home screen
+    apple: [
+      {
+        url: '/icon.png',
+        type: 'image/png',
+        sizes: '512x512',
+      },
+    ],
+  },
 };
 
 export default function RootLayout({ children }) {
